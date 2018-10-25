@@ -5,21 +5,21 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema term-project
+-- Schema termproject
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema term-project
+-- Schema termproject
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `term-project` DEFAULT CHARACTER SET utf8 ;
-USE `term-project` ;
+CREATE SCHEMA IF NOT EXISTS `termproject` DEFAULT CHARACTER SET utf8 ;
+USE `termproject` ;
 
 -- -----------------------------------------------------
--- Table `term-project`.`TaxData`
+-- Table `termproject`.`TaxData`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `term-project`.`TaxData` ;
+DROP TABLE IF EXISTS `termproject`.`TaxData` ;
 
-CREATE TABLE IF NOT EXISTS `term-project`.`TaxData` (
+CREATE TABLE IF NOT EXISTS `termproject`.`TaxData` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `state` CHAR(2) NOT NULL,
   `zipcode` INT NOT NULL,
@@ -36,11 +36,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `term-project`.`Restaurants`
+-- Table `termproject`.`Restaurants`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `term-project`.`Restaurants` ;
+DROP TABLE IF EXISTS `termproject`.`Restaurants` ;
 
-CREATE TABLE IF NOT EXISTS `term-project`.`Restaurants` (
+CREATE TABLE IF NOT EXISTS `termproject`.`Restaurants` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `latitude` FLOAT NOT NULL,
   `longitude` FLOAT NOT NULL,
