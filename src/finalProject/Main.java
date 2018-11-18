@@ -20,61 +20,24 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         System.out.println(topRestaurantsInZIP(30303, 4));
-        System.out.println(topRestaurantsInZIP(30601, 5));
-
         System.out.println(topRestaurantsInCounty("Fulton County","GA", 4));
-        System.out.println(topRestaurantsInCounty("Clarke County","GA", 5));
-
         System.out.println(averageIncomeInZIP(30303));
-        System.out.println(averageIncomeInZIP(30601));
-
         System.out.println(averageIncomeInCounty("Fulton County","GA"));
-        System.out.println(averageIncomeInCounty("Clarke County","GA"));
-
         System.out.println(totalReturnsInZIP(30303));
-        System.out.println(totalReturnsInZIP(30601));
-
         System.out.println(totalReturnsInCounty("Fulton County","GA"));
-        System.out.println(totalReturnsInCounty("Clarke County","GA"));
-
         System.out.println(topRestaurantsInState("GA", 4));
-        System.out.println(topRestaurantsInState("CA", 5));
-
         System.out.println(averageIncomeInState("GA"));
-        System.out.println(averageIncomeInState("CA"));
-
         System.out.println(totalReturnsInState("GA"));
-        System.out.println(totalReturnsInState("CA"));
-
         System.out.println(richestCountiesInState("GA", 4));
-        System.out.println(richestCountiesInState("CA", 5));
-
         System.out.println(poorestCountiesInState("GA", 4));
-        System.out.println(poorestCountiesInState("CA", 5));
-
         System.out.println(mostCommonRestaurantsInRichestCountiesInState("GA", 4));
-        System.out.println(mostCommonRestaurantsInRichestCountiesInState("CA", 5));
-
         System.out.println(mostCommonRestaurantsInPoorestCountiesInState("GA", 4));
-        System.out.println(mostCommonRestaurantsInPoorestCountiesInState("CA", 5));
-
         System.out.println(topRestaurantsEverywhere(4));
-        System.out.println(topRestaurantsEverywhere(5));
-
         System.out.println(averageIncomeEverywhere());
-
         System.out.println(totalReturnsEverywhere());
-
         System.out.println(richestStatesEverywhere(4));
-        System.out.println(richestStatesEverywhere(5));
-
         System.out.println(poorestStatesEverywhere(4));
-        System.out.println(poorestStatesEverywhere(5));
-
         System.out.println(mostCommonRestaurantsInRichestStates(2, 5));
-        System.out.println(mostCommonRestaurantsInRichestStates(2, 5));
-
-        System.out.println(mostCommonRestaurantsInPoorestStates(2, 5));
         System.out.println(mostCommonRestaurantsInPoorestStates(2, 5));
 
     }
@@ -550,7 +513,7 @@ public class Main {
     }
 
     /*
-     * Get the N most common restaurants in the N poorest states in the US
+     * Get the N most common restaurants in the M poorest states in the US
      */
     private static String mostCommonRestaurantsInPoorestStates(int N, int M) throws SQLException {
 
