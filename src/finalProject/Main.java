@@ -546,5 +546,269 @@ public class Main {
         return stringBuilder.toString();
 
     }
+    
+    /*
+     * Get the number of a certain restaurant in a zip code
+     */
+    private static String numRestaurantsZip(String name, int zip) throws SQLException {
+
+        String sql = "SELECT name, zipcode, count(*) as number" +
+                "FROM restaurants" +
+                "WHERE name = " + name +" AND zipcode = " + zip;
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("\n");
+        }
+
+        return stringBuilder.toString();
+
+    }
+     /*
+     * Get the number of a certain restaurant in a county
+     */
+    private static String numRestaurantsCounty(String name, String state, String county) throws SQLException {
+
+        String sql = "SELECT r.name, count(*) 
+                 + "FROM restaurants r"
+                 +"WHERE name= "+ name +" AND zipcode IN (
+	                +"SELECT zipcode"
+                    +"FROM taxdatasum"
+                    +"WHERE state = "+ state +" AND county = "+ county +"  )";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("\n");
+        }
+
+        return stringBuilder.toString();
+
+    }
+    
+     /*
+     * Get the number of a certain restaurant in a state
+     */
+    private static String numRestaurantsState(String name, String state) throws SQLException {
+
+        String sql = "SELECT name, count(*) as number" +
+                "FROM restaurants"+ 
+                "WHERE name = " + name +" AND zipcode IN ("+
+	                "SELECT zipcode"+
+                    "FROM taxdatasum"+
+                    "WHERE state = " + state +"  )";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("\n");
+        }
+
+        return stringBuilder.toString();
+
+    }
+    /*
+     * Get the N most common counties for a certain restaurant in a state
+     */
+    private static String mostCommonCounties(String name, String state, int N) throws SQLException {
+
+        String sql = "SELECT t.county, count(*) as locations" +
+                        "FROM restaurants r, taxdatasum t" +
+                        "WHERE r.name= "+ name +" AND r.zipcode = t.zipcode AND t.state = " + state +
+                        "GROUP BY county" +
+                        "ORDER BY count(*) DESC" +
+                        "LIMIT " + N;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("\n");
+        }
+
+        return stringBuilder.toString();
+
+    }
+    /*
+     * Get the average income of the most common counties for a certain restaurant in a state
+     */
+    private static String commonCountyAvgIncome(String name, String state, int N) throws SQLException {
+
+        String sql = "SELECT county, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6) as avgIncome"+
+                "FROM taxdatasum"+
+                "WHERE  state = " + state + " AND county in ("+
+	                "SELECT * from("+
+                    "SELECT t.county"+
+	                "FROM restaurants r, taxdatasum t"+
+	                "WHERE r.name= " + name + " AND r.zipcode = t.zipcode AND t.state = " + state +
+	                "GROUP BY county"+
+	                "ORDER BY count(*) DESC" +
+	                "LIMIT " + N +
+                    ") as t1" +
+                ")"+
+                "GROUP BY county";
+                
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("\n");
+        }
+
+        return stringBuilder.toString();
+
+    }
+    /*
+     * Get the number of a certain restaurant in all states
+     */
+    private static String numRestaurantsAllStates(String name) throws SQLException {
+
+        String sql = "SELECT count(*)"+
+                        "FROM restaurants"+
+                        "WHERE name = " + name;
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+            stringBuilder.append(resultSet.getString(1)).append("\n");
+        }
+
+        return stringBuilder.toString();
+
+    }
+    
+    /*
+     * Get the N most common states for a certain restaurant
+     */
+    private static String mostCommonStates(String name, String state, int N) throws SQLException {
+
+        String sql = "SELECT t.state, count(*) as locations" +
+                        "FROM restaurants r, taxdatasum t" +
+                        "WHERE r.name= "+ name +" AND r.zipcode = t.zipcode" +
+                        "GROUP BY state" +
+                        "ORDER BY count(*) DESC" +
+                        "LIMIT " + N;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("\n");
+        }
+
+        return stringBuilder.toString();
+
+    }
+    /*
+     * Get the N most common counties for a certain restaurant overall
+     */
+    private static String mostCommonCountiesOverall(String name, int N) throws SQLException {
+
+        String sql = "SELECT t.county, t.state, count(*) as locations" +
+                        "FROM restaurants r, taxdatasum t" +
+                        "WHERE r.name= "+ name +" AND r.zipcode = t.zipcode"+
+                        "GROUP BY state, county" +
+                        "ORDER BY count(*) DESC" +
+                        "LIMIT " + N;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(": ").append(resultSet.getInt(3)).append("\n");
+        }
+
+        return stringBuilder.toString();
+
+    }
+    
+    /*
+     * Get the average income of the most common counties for a certain restaurant overall
+     */
+    private static String commonCountyOverallAvgIncome(String name, int N) throws SQLException {
+
+        String sql = "SELECT county, state, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6) as avgIncome"+
+                "FROM taxdatasum"+ 
+                "WHERE  county in ("+
+	                "SELECT * from("+
+                    "SELECT t.county"+
+	                "FROM restaurants r, taxdatasum t"+
+	                "WHERE r.name= " + name +" AND r.zipcode = t.zipcode "+
+	                "GROUP BY t.state, t.county"+
+	                "ORDER BY count(*) DESC"+
+	                "LIMIT " + N +
+                    ") as t1)"+
+            "AND state in ("+
+                    "SELECT * from("+
+                    "SELECT t.state"+
+	                "FROM restaurants r, taxdatasum t"+
+                    "WHERE r.name= " + name +" AND r.zipcode = t.zipcode"+
+	                "GROUP BY t.state, t.county"+
+	                "ORDER BY count(*) DESC"+
+	                "LIMIT " + N +
+                    ") as t1"+
+	
+
+          ")"+
+          "GROUP BY state, county";
+                
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+                        stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(": ").append(resultSet.getInt(3)).append("\n");
+
+        }
+        
+
+        return stringBuilder.toString();
+
+    }
+    /*
+     * Get the average income of the most common states for a certain restaurant
+     */
+    private static String commonStateAvgIncome(String name, int N) throws SQLException {
+
+        String sql = "SELECT state, avgIncome"+
+                "FROM taxdatasum"
+                "WHERE state in ( SELECT * from("+
+	                "SELECT t.state"+
+	                "FROM restaurants r, taxdatasum t"+
+	                "WHERE r.name= " + name + " AND r.zipcode = t.zipcode"+
+	                "GROUP BY t.state"+
+	                "ORDER BY count(*) DESC"+
+	                "LIMIT " + N +") as t1) AND zipcode = '0'"+
+                "GROUP BY state";
+
+                
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (resultSet.next()) {
+                        stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("\n");
+
+        }
+        
+
+        return stringBuilder.toString();
+
+    }
+    
+    
+    
+    
+
 
 }
