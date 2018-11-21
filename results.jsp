@@ -14,9 +14,20 @@
 
 <%
 
-if (radioCount.equals("all")) {
-   out.println("User has selected to view information about the entire United States.<br><br>");
-   out.println("Top restaurants in the United States: " );
+if (radioCount.equals("one")) {
+   // Get information about the first input
+} else if (radioCount.equals("two")) {
+   // Get information about the second input
+} else if (radioCount.equals("all")) {
+   // Get information about the entire United States
+}
+
+if (radioType.equals("zip")) {
+   // Get information about ZIP codes
+} else if (radioType.equals("state")) {
+   // Get information about States
+} else if (radioType.equals("restaurant")) {
+   // Get information about Restaurants
 }
 
 %>
