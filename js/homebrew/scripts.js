@@ -15,7 +15,7 @@ var stateNameList = ["Alabama", "Alaska", "Arizona", "Arkansas", "California",
                      "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
                      "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
                      "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvia", "Rhode Island",
-                     "South Carolina", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+                     "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
                      "Washington", "West Virginia", "Wisconsin", "Wyoming"];
 
 //Gets the value of the radio button that was clicked.
