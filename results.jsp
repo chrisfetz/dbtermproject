@@ -773,7 +773,9 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(": ").append(resultSet.getInt(3)).append("<br>");
+           NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+            Double averageIncome = resultSet.getDouble(3) * 1000;
+            stringBuilder.append(resultSet.getString(1)).append(", ").append(resultSet.getString(2)).append(": ").append(averageIncome).append("<br>");
 
         }
 
