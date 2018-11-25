@@ -6,6 +6,12 @@
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.math.BigDecimal" %>
 
+<%-- Get the user input --%>
+<% String radioCount = request.getParameter("radiocount"); %>
+<% String radioType = request.getParameter("radiotype"); %>
+<% String text1 = request.getParameter("textinput1"); %>
+<% String text2 = request.getParameter("textinput2"); %>
+
 <%-- CSS for columns --%>
 <style>
 .column {
@@ -18,12 +24,6 @@
     clear: both;
 }
 </style>
-
-<%-- Get user input --%>
-<% String radioCount = request.getParameter("radiocount"); %>
-<% String radioType = request.getParameter("radiotype"); %>
-<% String text1 = request.getParameter("textinput1"); %>
-<% String text2 = request.getParameter("textinput2"); %>
 
 <%-- All The Java Methods --%>
 <%! 
@@ -251,7 +251,9 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("<br>");
+           Double averageIncome = 1000 * resultSet.getDouble(2);
+           NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+           stringBuilder.append(resultSet.getString(1)).append(": ").append(currencyFormat.format(averageIncome)).append("<br>");
         }
 
         return stringBuilder.toString();
@@ -275,7 +277,9 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("<br>");
+           Double averageIncome = 1000 * resultSet.getDouble(2);
+           NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+           stringBuilder.append(resultSet.getString(1)).append(": ").append(currencyFormat.format(averageIncome)).append("<br>");
         }
 
         return stringBuilder.toString();
@@ -311,7 +315,7 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("<br>");
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
         }
 
         return stringBuilder.toString();
@@ -347,7 +351,7 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("<br>");
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
         }
 
         return stringBuilder.toString();
@@ -747,7 +751,7 @@
                 "SELECT * from(" +
                 "SELECT t.county "+
                 "FROM restaurants r, taxdatasum t "+
-                "WHERE r.name= " + name +" AND r.zipcode = t.zipcode "+
+                "WHERE r.name= '" + name +"' AND r.zipcode = t.zipcode "+
                 "GROUP BY t.state, t.county "+
                 "ORDER BY count(*) DESC "+
                 "LIMIT " + N +
@@ -756,14 +760,12 @@
                 "SELECT * from( "+
                 "SELECT t.state "+
                 "FROM restaurants r, taxdatasum t "+
-                "WHERE r.name= " + name +" AND r.zipcode = t.zipcode "+
+                "WHERE r.name= '" + name + "' AND r.zipcode = t.zipcode "+
                 "GROUP BY t.state, t.county "+
                 "ORDER BY count(*) DESC "+
                 "LIMIT " + N +
                 ") as t1 " +
-
-
-                ")"+
+                ") "+
                 "GROUP BY state, county";
 
         Statement statement = connection.createStatement();
@@ -812,7 +814,7 @@
 
 %>
 
-<%-- Display the correct information, depending on user input --%>
+<%-- Display relevant information, depending on user input --%>
 <%
 
       // Create MySQL Connection
@@ -842,7 +844,7 @@
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>ZIP Code: " + text1 + ".</strong></u></p>");
+         out.println("<p><u><strong>ZIP Code: " + text1 + "</strong></u></p>");
          Double averageIncome = Double.parseDouble(averageIncomeInZIP(Integer.parseInt(text1), connection)) * 1000;
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text1), connection));
@@ -852,7 +854,7 @@
          out.println("</div>");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>ZIP Code: " + text2 + ".</strong></u></p>");
+         out.println("<p><u><strong>ZIP Code: " + text2 + "</strong></u></p>");
          averageIncome = Double.parseDouble(averageIncomeInZIP(Integer.parseInt(text2), connection)) * 1000;
          out.println("<p><b>Average household income in " + text2 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text2), connection));
@@ -876,8 +878,8 @@
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInState(text1, connection));
          out.println("<p><b>Total returns in in " + text1 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Richest counties in " + text1 + ":</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
-         out.println("<p><b>Poorest counties in " + text1 + ":</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Richest counties in " + text1 + " (and median household income):</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Poorest counties in " + text1 + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the richest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the poorest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text1, 5, connection) + "</p>");
       }
@@ -888,28 +890,28 @@
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>State: " + text1 + ".</strong></u></p>");
+         out.println("<p><u><strong>State: " + text1 + "</strong></u></p>");
          out.println("<p><b>Top 5 restaurants in " + text1 + ":</b></br>" + topRestaurantsInState(text1, 5, connection) + "</p>");
          Double averageIncome = Double.parseDouble(averageIncomeInState(text1, connection)) * 1000;
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInState(text1, connection));
          out.println("<p><b>Total returns in in " + text1 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Richest counties in " + text1 + ":</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
-         out.println("<p><b>Poorest counties in " + text1 + ":</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Richest counties in " + text1 + " (and median household income):</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Poorest counties in " + text1 + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the richest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the poorest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text1, 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>State: " + text2 + ".</strong></u></p>");
+         out.println("<p><u><strong>State: " + text2 + "</strong></u></p>");
          out.println("<p><b>Top 5 restaurants in " + text2 + ":</b></br>" + topRestaurantsInState(text2, 5, connection) + "</p>");
          averageIncome = Double.parseDouble(averageIncomeInState(text2, connection)) * 1000;
          out.println("<p><b>Average household income in " + text2 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          totalReturns = Double.parseDouble(totalReturnsInState(text2, connection));
          out.println("<p><b>Total returns in in " + text2 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Richest counties in " + text2 + ":</b></br>" + richestCountiesInState(text2, 5, connection) + "</p>");
-         out.println("<p><b>Poorest counties in " + text2 + ":</b></br>" + poorestCountiesInState(text2, 5, connection) + "</p>");
+         out.println("<p><b>Richest counties in " + text2 + " (and median household income):</b></br>" + richestCountiesInState(text2, 5, connection) + "</p>");
+         out.println("<p><b>Poorest counties in " + text2 + " (and median household income):</b></br>" + poorestCountiesInState(text2, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the richest counties in " + text2 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text2, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the poorest counties in " + text2 + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text2, 5, connection) + "</p>");
 
@@ -947,7 +949,7 @@
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
 
-         out.println("<p><strong>Restaurant: " + text1 + ".</strong></p>");
+         out.println("<p><strong>Restaurant: " + text1 + "</strong></p>");
          Double numLocations = Double.parseDouble(numRestaurantsAllStates(text1, connection));
          out.println("<p><b>Number of " + text1 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
          out.println("<p><b>States with the most " + text1 + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
@@ -957,7 +959,7 @@
          out.println("</div>");
          out.println("<div class=\"column\">");
 
-         out.println("<p><strong>Restaurant: " + text2 + ".</strong></p>");
+         out.println("<p><strong>Restaurant: " + text2 + "</strong></p>");
          numLocations = Double.parseDouble(numRestaurantsAllStates(text2, connection));
          out.println("<p><b>Number of " + text2 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
          out.println("<p><b>States with the most " + text2 + " locations:</b></br>" + mostCommonStates(text2, 5, connection) + "</p>");
