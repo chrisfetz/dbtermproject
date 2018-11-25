@@ -946,7 +946,7 @@
       }
       // Two Restaurants
       if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("Restaurant")) {
-         out.println("<p><strong>Two Restaurants: " + text1 + " and " + text2 + ".</strong></p>");
+         out.println("<p><h2>Two Restaurants: " + text1 + " and " + text2 + ".</h2></p>");
 
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
