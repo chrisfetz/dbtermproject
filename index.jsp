@@ -39,14 +39,14 @@
       <form class="col-4 card" name="myform" action="results.jsp">
         I'm looking for information about 
         <span>
-          <label class="radio-inline"><input type="radio" name="radiocount" value="one" onclick="radioClick(this);" checked>one</label>
-          <label class="radio-inline"><input type="radio" name="radiocount" value="two" onclick="radioClick(this);">two</label>
-          <label class="radio-inline"><input type="radio" name="radiocount" value="all" onclick="radioClick(this);">all</label>
+          <label class="radio-inline"><input type="radio" name="radiocount" value="One" onclick="radioClick(this);" checked> One</label>
+          <label class="radio-inline"><input type="radio" name="radiocount" value="Two" onclick="radioClick(this);"> Two</label>
+          <label class="radio-inline"><input type="radio" name="radiocount" value="All" onclick="radioClick(this);"> All</label>
         </span>
         <span>
-          <label class="radio-inline"><input type="radio" name="radiotype" value="zip" id="zipradio" onclick="radioClick(this);" checked>zip code(s)</label>
-          <label class="radio-inline"><input type="radio" name="radiotype" value="state" id="zipstate" onclick="radioClick(this);">state(s)</label>
-          <label class="radio-inline"><input type="radio" name="radiotype" value="rest" onclick="radioClick(this);">restaurant(s)</label>
+          <label class="radio-inline"><input type="radio" name="radiotype" value="ZIP" id="zipradio" onclick="radioClick(this);" checked> ZIP Code(s)</label>
+          <label class="radio-inline"><input type="radio" name="radiotype" value="State" id="zipstate" onclick="radioClick(this);"> State(s)</label>
+          <label class="radio-inline"><input type="radio" name="radiotype" value="Restaurant" onclick="radioClick(this);"> Restaurant(s)</label>
         </span>
 
         <div id="inputs-here">
@@ -54,13 +54,13 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="textinputlabel1">ZIP Code 1</span>
             </div>
-            <input type="text" class="form-control" id="textinput1" name="textinputs" aria-label="Text input 1" aria-describedby="inputGroup-sizing-sm">
+            <input type="text" class="form-control" id="textinput1" name="textinput1" aria-label="Text input 1" aria-describedby="inputGroup-sizing-sm">
           </div>
           <div class="input-group input-group-sm mb-3" id="textinputgroup2">
             <div class="input-group-prepend">
               <span class="input-group-text" id="textinputlabel2" style="display:none;">ZIP Code 2</span>
             </div>
-            <input type="text" class="form-control" id="textinput2" name="textinputs" style="display:none;" aria-label="Text input 2" aria-describedby="inputGroup-sizing-sm">
+            <input type="text" class="form-control" id="textinput2" name="textinput2" style="display:none;" aria-label="Text input 2" aria-describedby="inputGroup-sizing-sm">
           </div>
         </div>
 

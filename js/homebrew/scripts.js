@@ -41,7 +41,7 @@ function radioClick (myRadio) {
     value = getValue(myRadio);
 
     //get dom elements that may be changed
-    var inputs = document.getElementsByName("textinputs");
+
     var input1 = document.getElementById("textinput1");
     var input2 = document.getElementById("textinput2");
     var inputlabel1 = document.getElementById("textinputlabel1");
@@ -50,7 +50,7 @@ function radioClick (myRadio) {
     var zipradio = document.getElementById("zipradio");
 
     switch (value) {
-        case "one":
+        case "One":
             zipradio.disabled = false;
             showElement(inputsdiv);
             showElement(inputlabel1);
@@ -58,7 +58,7 @@ function radioClick (myRadio) {
             hideElement(inputlabel2);
             hideAndClearElement(input2);
             break;
-        case "two":
+        case "Two":
             zipradio.disabled = false;
             showElement(inputsdiv);
             showElement(inputlabel1);
@@ -66,7 +66,7 @@ function radioClick (myRadio) {
             showElement(inputlabel2);
             showElement(input2);
             break;
-        case "all":
+        case "All":
             zipradio.disabled = true;
             zipradio.checked = false;
             hideElement(inputsdiv);
@@ -75,19 +75,19 @@ function radioClick (myRadio) {
             hideElement(inputlabel2);
             hideAndClearElement(input2);
             break;
-        case "zip":
+        case "ZIP":
             clearElement(input1);
             clearElement(input2);
             inputlabel1.innerHTML = "ZIP Code 1";
             inputlabel2.innerHTML = "ZIP Code 2";
             break;
-        case "state":
+        case "State":
             clearElement(input1);
             clearElement(input2);
             inputlabel1.innerHTML = "State 1";
             inputlabel2.innerHTML = "State 2";
             break;
-        case "rest":
+        case "Restaurant":
             clearElement(input1);
             clearElement(input2);
             inputlabel1.innerHTML = "Restaurant 1";
