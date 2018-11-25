@@ -2,10 +2,10 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.io.*" %>
 
-<% String radioCount = request.getParameter("radioCount"); %>
-<% String radioType = request.getParameter("radioType"); %>
-<% String text1 = request.getParameter("text1"); %>
-<% String text2 = request.getParameter("text2"); %>
+<% String radioCount = request.getParameter("radiocount"); %>
+<% String radioType = request.getParameter("radiotype"); %>
+<% String text1 = request.getParameter("textinput2"); %>
+<% String text2 = request.getParameter("textinput2"); %>
 
 <% out.println("Count: " + radioCount + "<br>"); %>
 <% out.println("Type: " + radioType + "<br>"); %>
