@@ -45,7 +45,9 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
+           DecimalFormat numberFormat = new DecimalFormat("#,###");
+           Double numLocations = resultSet.getDouble(2);
+           stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
         }
 
         return stringBuilder.toString();
@@ -368,7 +370,9 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("<br>");
+           DecimalFormat numberFormat = new DecimalFormat("#,###");
+           Double numLocations = Double.parseDouble(resultSet.getString(2));
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
         }
 
         return stringBuilder.toString();
@@ -495,7 +499,9 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
+           DecimalFormat numberFormat = new DecimalFormat("#,###");
+           Double numLocations = Double.parseDouble(resultSet.getString(2));
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
         }
 
         return stringBuilder.toString();
@@ -530,7 +536,9 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
+           DecimalFormat numberFormat = new DecimalFormat("#,###");
+           Double numLocations = Double.parseDouble(resultSet.getString(2));
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
         }
 
         return stringBuilder.toString();
@@ -664,9 +672,9 @@
      */
     private static String numRestaurantsAllStates(String name, Connection connection) throws SQLException {
 
-        String sql = "SELECT count(*)"+
-                "FROM restaurants"+
-                "WHERE name = " + name;
+        String sql = "SELECT count(*) " +
+                "FROM restaurants " +
+                "WHERE name = '" + name + "'";
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -683,20 +691,22 @@
     /*
      * Get the N most common states for a certain restaurant
      */
-    private static String mostCommonStates(String name, String state, int N, Connection connection) throws SQLException {
+    private static String mostCommonStates(String name, int N, Connection connection) throws SQLException {
 
-        String sql = "SELECT t.state, count(*) as locations" +
-                "FROM restaurants r, taxdatasum t" +
-                "WHERE r.name= "+ name +" AND r.zipcode = t.zipcode" +
-                "GROUP BY state" +
-                "ORDER BY count(*) DESC" +
+        String sql = "SELECT t.state, count(*) as locations " +
+                "FROM restaurants r, taxdatasum t " +
+                "WHERE r.name= '"+ name +"' AND r.zipcode = t.zipcode " +
+                "GROUP BY state " +
+                "ORDER BY count(*) DESC " +
                 "LIMIT " + N;
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append("<br>");
+           DecimalFormat numberFormat = new DecimalFormat("#,###");
+           Double numLocations = Double.parseDouble(resultSet.getString(2));
+           stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
         }
 
         return stringBuilder.toString();
@@ -708,18 +718,18 @@
      */
     private static String mostCommonCountiesOverall(String name, int N, Connection connection) throws SQLException {
 
-        String sql = "SELECT t.county, t.state, count(*) as locations" +
-                "FROM restaurants r, taxdatasum t" +
-                "WHERE r.name= "+ name +" AND r.zipcode = t.zipcode"+
-                "GROUP BY state, county" +
-                "ORDER BY count(*) DESC" +
+        String sql = "SELECT t.county, t.state, count(*) as locations " +
+                "FROM restaurants r, taxdatasum t " +
+                "WHERE r.name= '"+ name + "' AND r.zipcode = t.zipcode "+
+                "GROUP BY state, county " +
+                "ORDER BY count(*) DESC " +
                 "LIMIT " + N;
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(": ").append(resultSet.getInt(3)).append("<br>");
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(3)).append(" locations<br>");
         }
 
         return stringBuilder.toString();
@@ -731,26 +741,26 @@
      */
     private static String commonCountyOverallAvgIncome(String name, int N, Connection connection) throws SQLException {
 
-        String sql = "SELECT county, state, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6) as avgIncome"+
-                "FROM taxdatasum"+
-                "WHERE  county in ("+
-                "SELECT * from("+
-                "SELECT t.county"+
-                "FROM restaurants r, taxdatasum t"+
+        String sql = "SELECT county, state, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6) as avgIncome "+
+                "FROM taxdatasum "+
+                "WHERE  county in ( "+
+                "SELECT * from(" +
+                "SELECT t.county "+
+                "FROM restaurants r, taxdatasum t "+
                 "WHERE r.name= " + name +" AND r.zipcode = t.zipcode "+
-                "GROUP BY t.state, t.county"+
-                "ORDER BY count(*) DESC"+
+                "GROUP BY t.state, t.county "+
+                "ORDER BY count(*) DESC "+
                 "LIMIT " + N +
-                ") as t1)"+
-                "AND state in ("+
-                "SELECT * from("+
-                "SELECT t.state"+
-                "FROM restaurants r, taxdatasum t"+
-                "WHERE r.name= " + name +" AND r.zipcode = t.zipcode"+
-                "GROUP BY t.state, t.county"+
-                "ORDER BY count(*) DESC"+
+                ") as t1) " +
+                "AND state in ( "+
+                "SELECT * from( "+
+                "SELECT t.state "+
+                "FROM restaurants r, taxdatasum t "+
+                "WHERE r.name= " + name +" AND r.zipcode = t.zipcode "+
+                "GROUP BY t.state, t.county "+
+                "ORDER BY count(*) DESC "+
                 "LIMIT " + N +
-                ") as t1"+
+                ") as t1 " +
 
 
                 ")"+
@@ -823,6 +833,7 @@
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text1), connection));
          out.println("<p><b>Total Returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Restaurants with the most locations in " + text1 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
       }
       // Two ZIP Codes
       if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("ZIP")) {
@@ -836,6 +847,7 @@
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text1), connection));
          out.println("<p><b>Total Returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Restaurants with the most locations in " + text1 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("<div class=\"column\">");
@@ -845,6 +857,7 @@
          out.println("<p><b>Average household income in " + text2 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text2), connection));
          out.println("<p><b>Total Returns in " + text2 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Restaurants with the most locations in " + text2 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text2), 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("</div>");
@@ -908,9 +921,9 @@
       if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("State")) {
         out.println("<p><h2>All States</h2></p>");
         out.println("<p><b>Top restaurants total:</b></br>" + topRestaurantsEverywhere(5, connection) + "</p>");
-        out.println("<p><b>Average income everywhere:</b></br>" + averageIncomeEverywhere(connection) + "</p>");
+        out.println("<p><b>Average household income everywhere:</b></br>" + currencyFormat.format(1000 * Double.parseDouble(averageIncomeEverywhere(connection))) + "</p>");
         Double totalReturns = Double.parseDouble(totalReturnsEverywhere(connection));
-        out.println("<p><b>Total returns everywhere:</b></br>" + numberFormat.format(totalReturns) + "</p>");
+        out.println("<p><b>Total returns in all states:</b></br>" + numberFormat.format(totalReturns) + "</p>");
         out.println("<p><b>Richest states (and average household income):</b></br>" + richestStatesEverywhere(5, connection) + "</p>");
         out.println("<p><b>Poorest states (and average household income):</b></br>" + poorestStatesEverywhere(5, connection) + "</p>");
         out.println("<p><b>Most common restaurants in richest states:</b></br>" + mostCommonRestaurantsInRichestStates(5, 5, connection) + "</p>");
@@ -920,15 +933,47 @@
       // One Restaurant
       if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("Restaurant")) {
          out.println("<p><strong>Restaurant: " + text1 + ".</strong></p>");
+         Double numLocations = Double.parseDouble(numRestaurantsAllStates(text1, connection));
+         out.println("<p><b>Number of " + text1 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
+         out.println("<p><b>States with the most " + text1 + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
+         out.println("<p><b>Counties with the most " + text1 + " locations:</b></br>" + mostCommonCountiesOverall(text1, 5, connection) + "</p>");
+         out.println("<p><b>Average income of the counties with the most " + text1 + " locations:</b></br>" + commonCountyOverallAvgIncome(text1, 5, connection) + "</p>");
+
       }
       // Two Restaurants
       if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("Restaurant")) {
          out.println("<p><strong>Two Restaurants: " + text1 + " and " + text2 + ".</strong></p>");
+
+         out.println("<div class=\"row\">");
+         out.println("<div class=\"column\">");
+
+         out.println("<p><strong>Restaurant: " + text1 + ".</strong></p>");
+         Double numLocations = Double.parseDouble(numRestaurantsAllStates(text1, connection));
+         out.println("<p><b>Number of " + text1 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
+         out.println("<p><b>States with the most " + text1 + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
+         out.println("<p><b>Counties with the most " + text1 + " locations:</b></br>" + mostCommonCountiesOverall(text1, 5, connection) + "</p>");
+         out.println("<p><b>Average income of the counties with the most " + text1 + " locations:</b></br>" + commonCountyOverallAvgIncome(text1, 5, connection) + "</p>");
+
+         out.println("</div>");
+         out.println("<div class=\"column\">");
+
+         out.println("<p><strong>Restaurant: " + text2 + ".</strong></p>");
+         numLocations = Double.parseDouble(numRestaurantsAllStates(text2, connection));
+         out.println("<p><b>Number of " + text2 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
+         out.println("<p><b>States with the most " + text2 + " locations:</b></br>" + mostCommonStates(text2, 5, connection) + "</p>");
+         out.println("<p><b>Counties with the most " + text2 + " locations:</b></br>" + mostCommonCountiesOverall(text2, 5, connection) + "</p>");
+         out.println("<p><b>Average income of the counties with the most " + text2 + " locations:</b></br>" + commonCountyOverallAvgIncome(text2, 5, connection) + "</p>");
+
+         out.println("</div>");
+         out.println("</div>");
+
       }
       // All Restaurants
       if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("Restaurant")) {
          out.println("<p><strong>All Restaurants</strong></p>");
          out.println("<p><b>The top 5 most popular restaurants in the entire United States:</b></br>" + topRestaurantsEverywhere(5, connection) + "</p>");
+         out.println("<p><b>The top 5 most common restaurants in the richest states:</b></br>" + mostCommonRestaurantsInRichestStates(5, 5, connection) + "</p>");
+         out.println("<p><b>The top 5 most common restaurants in the poorest states:</b></br>" + mostCommonRestaurantsInPoorestStates(5, 5, connection) + "</p>");
       }
 
       out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
