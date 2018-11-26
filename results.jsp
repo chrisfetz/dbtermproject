@@ -12,6 +12,11 @@
 <% String text1 = request.getParameter("textinput1"); %>
 <% String text2 = request.getParameter("textinput2"); %>
 
+<% if (radioCount == null) radioCount = "";
+   if (radioType == null) radioType = "";
+   if (text1 == null) text1 = "";
+   if (text2 == null) text2 = ""; %>
+
 <%-- CSS for columns --%>
 <style>
 .column {

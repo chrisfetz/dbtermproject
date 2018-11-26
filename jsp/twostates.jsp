@@ -36,23 +36,24 @@
       <form class="col-4 card" name="myform" id="myform" action="../results.jsp">
 
         <div class="text-center p-4">
-            Please enter the required information.
+            Please enter two state abbreviations<br>(e.g. GA and CA)
         </div>
 
         <div name="inputs-here">
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">State</span>
+              <span class="input-group-text">State 1</span>
             </div>
-            <input type="text" class="form-control" name="textinput" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">
-          </div>
+            <input type="hidden" class="form-control" name="radiocount" value="Two" aria-describedby="inputGroup-sizing-sm">
+            <input type="hidden" class="form-control" name="radiotype" value="State" aria-describedby="inputGroup-sizing-sm">
+            <input type="text" class="form-control" name="textinput1" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">     
         </div>
         <div name="inputs-here">
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">State</span>
+              <span class="input-group-text">State 2</span>
             </div>
-            <input type="text" class="form-control" name="textinput" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">
+            <input type="text" class="form-control" name="textinput2" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">          </div>
           </div>
         </div>
 

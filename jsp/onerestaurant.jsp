@@ -36,7 +36,7 @@
       <form class="col-4 card" name="myform" id="myform" action="../results.jsp">
 
         <div class="text-center p-4">
-            Please enter the required information.
+            Please enter a restaurant name.<br>(e.g. Subway or KFC)
         </div>
 
         <div name="inputs-here">
@@ -44,8 +44,9 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Restaurant</span>
             </div>
-            <input type="text" class="form-control" name="textinput" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">
-          </div>
+            <input type="hidden" class="form-control" name="radiocount" value="One" aria-describedby="inputGroup-sizing-sm">
+            <input type="hidden" class="form-control" name="radiotype" value="Restaurant" aria-describedby="inputGroup-sizing-sm">
+            <input type="text" class="form-control" name="textinput1" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">          </div>
         </div>
 
         <input type="submit" class="m-3" value="submit">

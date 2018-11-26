@@ -36,23 +36,25 @@
       <form class="col-4 card" name="myform" id="myform" action="../results.jsp">
 
         <div class="text-center p-4">
-            Please enter the required information.
+            Please enter two ZIP Codes.<br>(e.g. 30601 and 30303)
         </div>
 
         <div name="inputs-here">
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">ZIP Code</span>
+              <span class="input-group-text">ZIP Code 1</span>
             </div>
-            <input type="text" class="form-control" name="textinput" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">
+            <input type="text" class="form-control" name="textinput1" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">
           </div>
         </div>
         <div name="inputs-here">
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">ZIP Code</span>
+              <span class="input-group-text">ZIP Code 2</span>
             </div>
-            <input type="text" class="form-control" name="textinput" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">
+            <input type="hidden" class="form-control" name="radiocount" value="Two" aria-describedby="inputGroup-sizing-sm">
+            <input type="hidden" class="form-control" name="radiotype" value="ZIP" aria-describedby="inputGroup-sizing-sm">
+            <input type="text" class="form-control" name="textinput2" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">
           </div>
         </div>
 
