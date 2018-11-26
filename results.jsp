@@ -821,6 +821,47 @@
 
 %>
 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Money vs. Meals</title>
+  <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="css/homebrew/styles.css">
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body id="home">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../index.jsp">Money vs. Meals</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <%-- <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+        </li> --%>
+    </div>
+  </nav>
+
+  <div class="container p-4" id="container">
+   
+
+
+
+
 <%-- Display relevant information, depending on user input --%>
 <%
 
@@ -988,3 +1029,13 @@
       out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
 
 %>
+   
+  </div>
+
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/homebrew/scripts.js"></script>
+</body>
+</html>
+
+
+
