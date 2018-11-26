@@ -32,40 +32,29 @@
   </nav>
 
   <div class="container" id="container">
-    <div class="row justify-content-center">
-      <div class="col-12 card">
+    <div class="row justify-content-center text-center">
+      <div class="col-12 card p-3 m-4">
           This website gives you information about restaurants and areas of the United States.
       </div>
-      <form class="col-4 card" name="myform" action="results.jsp">
+      <div class="col-6 card p-3">
         I'm looking for information about 
-        <span>
-          <label class="radio-inline"><input type="radio" name="radiocount" value="One" onclick="radioClick(this);" checked> One</label>
-          <label class="radio-inline"><input type="radio" name="radiocount" value="Two" onclick="radioClick(this);"> Two</label>
-          <label class="radio-inline"><input type="radio" name="radiocount" value="All" onclick="radioClick(this);"> All</label>
-        </span>
-        <span>
-          <label class="radio-inline"><input type="radio" name="radiotype" value="ZIP" id="zipradio" onclick="radioClick(this);" checked> ZIP Code(s)</label>
-          <label class="radio-inline"><input type="radio" name="radiotype" value="State" id="zipstate" onclick="radioClick(this);"> State(s)</label>
-          <label class="radio-inline"><input type="radio" name="radiotype" value="Restaurant" onclick="radioClick(this);"> Restaurant(s)</label>
-        </span>
-
-        <div id="inputs-here">
-          <div class="input-group input-group-sm mb-3" id="textinputgroup1">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="textinputlabel1">ZIP Code 1</span>
-            </div>
-            <input type="text" class="form-control" id="textinput1" name="textinput1" aria-label="Text input 1" aria-describedby="inputGroup-sizing-sm">
-          </div>
-          <div class="input-group input-group-sm mb-3" id="textinputgroup2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="textinputlabel2" style="display:none;">ZIP Code 2</span>
-            </div>
-            <input type="text" class="form-control" id="textinput2" name="textinput2" style="display:none;" aria-label="Text input 2" aria-describedby="inputGroup-sizing-sm">
-          </div>
+        <div class="btn-group p-1">
+          <a class="btn btn-primary btn-sm m-1" href="jsp/onezipcode.jsp" role="button">One ZIP Code</a>
+          <a class="btn btn-primary btn-sm m-1" href="jsp/twozipcodes.jsp" role="button">Two ZIP Codes</a>
+        </div>
+        <div class="btn-group p-1">
+          <a class="btn btn-primary btn-sm m-1" href="jsp/onestate.jsp" role="button">One State</a>
+          <a class="btn btn-primary btn-sm m-1" href="jsp/twostates.jsp" role="button">Two States</a>
+          <a class="btn btn-primary btn-sm m-1" href="jsp/allstates.jsp" role="button">All States</a>
+        </div>
+        <div class="btn-group p-1">
+          <a class="btn btn-primary btn-sm m-1" href="jsp/onerestaurant.jsp" role="button">One Restaurant</a>
+          <a class="btn btn-primary btn-sm m-1" href="jsp/tworestaurants.jsp" role="button">Two Restuarants</a>
+          <a class="btn btn-primary btn-sm m-1" href="jsp/allrestaurants.jsp" role="button">All Restaurants</a>
         </div>
 
-        <input type="submit" value="submit">
-      </form> 
+        
+      </div> 
     </div>
   </div>
 
