@@ -58,7 +58,7 @@
           </div>
         </div>
 
-        <input type="submit" class="m-3" value="submit">
+        <input type="submit" class="m-3" value="Submit">
       </form> 
     </div>
   </div>

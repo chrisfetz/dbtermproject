@@ -49,7 +49,7 @@
             <input type="text" class="form-control" name="textinput1" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">          </div>
         </div>
 
-        <input type="submit" class="m-3" value="submit">
+        <input type="submit" class="m-3" value="Submit">
       </form> 
     </div>
   </div>
