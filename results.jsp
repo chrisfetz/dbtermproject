@@ -895,6 +895,7 @@
          Double totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text1), connection));
          out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
          out.println("<p><b>Restaurants with the most locations in " + text1 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
+         out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
       // Two ZIP Codes
       else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("ZIP")) {
@@ -922,11 +923,13 @@
 
          out.println("</div>");
          out.println("</div>");
+         out.println("<p style=\"margin-left: -18px;\"><b><a href=\"index.jsp\">Go Back</a></p>");
 
       }
       // All ZIP codes
       else if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("ZIP")) {
          out.println("<p><h2>All ZIP Codes</h2></p>");
+         out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
 
       // One State
@@ -941,6 +944,7 @@
          out.println("<p><b>Poorest counties in " + text1 + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the richest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the poorest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
       // Two States
       else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("State")) {
@@ -976,6 +980,7 @@
 
          out.println("</div>");
          out.println("</div>");
+         out.println("<p style=\"margin-left: -18px;\"><b><a href=\"index.jsp\">Go Back</a></p>");
 
       }
       // All States
@@ -989,6 +994,7 @@
         out.println("<p><b>Poorest states (and average household income):</b></br>" + poorestStatesEverywhere(5, connection) + "</p>");
         out.println("<p><b>Most common restaurants in richest states:</b></br>" + mostCommonRestaurantsInRichestStates(5, 5, connection) + "</p>");
         out.println("<p><b>Most common restaurants in poorest states:</b></br>" + mostCommonRestaurantsInPoorestStates(5, 5, connection) + "</p>");
+        out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
 
       // One Restaurant
@@ -999,7 +1005,7 @@
          out.println("<p><b>States with the most " + text1 + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
          out.println("<p><b>Counties with the most " + text1 + " locations:</b></br>" + mostCommonCountiesOverall(text1, 5, connection) + "</p>");
          out.println("<p><b>Average income of the counties with the most " + text1 + " locations:</b></br>" + commonCountyOverallAvgIncome(text1, 5, connection) + "</p>");
-
+         out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
       // Two Restaurants
       else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("Restaurant")) {
@@ -1027,6 +1033,7 @@
 
          out.println("</div>");
          out.println("</div>");
+         out.println("<p style=\"margin-left: -18px;\"><b><a href=\"index.jsp\">Go Back</a></p>");
 
       }
       // All Restaurants
@@ -1035,9 +1042,9 @@
          out.println("<p><b>Top 5 restaurants in the United States:</b></br>" + topRestaurantsEverywhere(5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in richest states:</b></br>" + mostCommonRestaurantsInRichestStates(5, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in poorest states:</b></br>" + mostCommonRestaurantsInPoorestStates(5, 5, connection) + "</p>");
+         out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
 
-      out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
 
 %>
    
