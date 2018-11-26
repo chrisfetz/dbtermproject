@@ -42,7 +42,7 @@
         <div name="inputs-here">
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">Restaurant</span>
+              <span class="input-group-text">Restaurant 1</span>
             </div>
             <input type="hidden" class="form-control" name="radiocount" value="Two" aria-describedby="inputGroup-sizing-sm">
             <input type="hidden" class="form-control" name="radiotype" value="Restaurant" aria-describedby="inputGroup-sizing-sm">
@@ -52,7 +52,7 @@
         <div name="inputs-here">
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">Restaurant</span>
+              <span class="input-group-text">Restaurant 2</span>
             </div>
             <input type="text" class="form-control" name="textinput2" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">
           </div>

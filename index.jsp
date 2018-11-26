@@ -34,7 +34,8 @@
   <div class="container" id="container">
     <div class="row justify-content-center text-center">
       <div class="col-12 card p-3 m-4">
-          This website gives you information about restaurants and areas of the United States.
+          <p>This website gives you information about restaurants and areas of the United States.</p>
+          <p>Created by William Biddy, Chris Fetz, and Kevin Bagwell.</p>
       </div>
       <div class="col-6 card p-3">
         I'm looking for information about 
