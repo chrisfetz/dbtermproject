@@ -49,10 +49,13 @@
         ResultSet resultSet = statement.executeQuery(sql);
         StringBuilder stringBuilder = new StringBuilder();
 
+       
+
         while (resultSet.next()) {
-           DecimalFormat numberFormat = new DecimalFormat("#,###");
-           Double numLocations = resultSet.getDouble(2);
-           stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
+            DecimalFormat numberFormat = new DecimalFormat("#,###");
+            Double numLocations = resultSet.getDouble(2);
+            String location = (numLocations > 1) ? "locations" : "location";
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -79,7 +82,8 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
+            String location = (resultSet.getInt(2) > 1) ? "locations" : "location";
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -190,7 +194,8 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
+            String location = (resultSet.getInt(2) > 1) ? "locations" : "location";
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -320,7 +325,8 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
+            String location = (resultSet.getInt(2) > 1) ? "locations" : "location";
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -356,7 +362,8 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" locations<br>");
+            String location = (resultSet.getInt(2) > 1) ? "locations" : "location";
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(2)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -510,7 +517,8 @@
         while (resultSet.next()) {
            DecimalFormat numberFormat = new DecimalFormat("#,###");
            Double numLocations = Double.parseDouble(resultSet.getString(2));
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
+           String location = (numLocations > 1) ? "locations" : "location";
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -547,7 +555,8 @@
         while (resultSet.next()) {
            DecimalFormat numberFormat = new DecimalFormat("#,###");
            Double numLocations = Double.parseDouble(resultSet.getString(2));
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
+           String location = (numLocations > 1) ? "locations" : "location";
+            stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -715,7 +724,8 @@
         while (resultSet.next()) {
            DecimalFormat numberFormat = new DecimalFormat("#,###");
            Double numLocations = Double.parseDouble(resultSet.getString(2));
-           stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" locations<br>");
+           String location = (numLocations > 1) ? "locations" : "location";
+           stringBuilder.append(resultSet.getString(1)).append(": ").append(numberFormat.format(numLocations)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -738,7 +748,8 @@
         StringBuilder stringBuilder = new StringBuilder();
 
         while (resultSet.next()) {
-            stringBuilder.append(resultSet.getString(1)).append(": ").append(resultSet.getInt(3)).append(" locations<br>");
+            String location = (resultSet.getInt(3) > 1) ? "locations" : "location";
+            stringBuilder.append(resultSet.getString(1)).append(", ").append(resultSet.getString(2)).append(": ").append(resultSet.getInt(3)).append(" " + location + "<br>");
         }
 
         return stringBuilder.toString();
@@ -750,7 +761,7 @@
      */
     private static String commonCountyOverallAvgIncome(String name, int N, Connection connection) throws SQLException {
 
-        String sql = "SELECT county, state, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6) as avgIncome "+
+        String sql = "SELECT county, state, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 5) as avgIncome "+
                 "FROM taxdatasum "+
                 "WHERE  county in ( "+
                 "SELECT * from(" +
@@ -780,7 +791,7 @@
         while (resultSet.next()) {
            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
             Double averageIncome = resultSet.getDouble(3) * 1000;
-            stringBuilder.append(resultSet.getString(1)).append(", ").append(resultSet.getString(2)).append(": ").append(averageIncome).append("<br>");
+            stringBuilder.append(resultSet.getString(1)).append(", ").append(resultSet.getString(2)).append(": ").append(currencyFormat.format(averageIncome)).append("<br>");
 
         }
 
@@ -878,17 +889,17 @@
 
       // One ZIP Code
       if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("ZIP")) {
-         out.println("<p><h2>ZIP Code: " + text1 + ".</h2></p>");
+         out.println("<p><h2>ZIP Code: " + text1 + "</h2></p>");
          Double averageIncome = Double.parseDouble(averageIncomeInZIP(Integer.parseInt(text1), connection)) * 1000;
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text1), connection));
-         out.println("<p><b>Total Returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
          out.println("<p><b>Restaurants with the most locations in " + text1 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
       }
       // Two ZIP Codes
-      if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("ZIP")) {
-         out.println("<p><h2>Two ZIP Codes: " + text1 + " and " + text2 + ".</h2></p>");
+      else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("ZIP")) {
 
+         out.println("<p><h2 style=\"margin-left: -18px;\">Two ZIP Codes: " + text1 + " and " + text2 + "</h2></p>");
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
 
@@ -896,7 +907,7 @@
          Double averageIncome = Double.parseDouble(averageIncomeInZIP(Integer.parseInt(text1), connection)) * 1000;
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text1), connection));
-         out.println("<p><b>Total Returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
          out.println("<p><b>Restaurants with the most locations in " + text1 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
 
          out.println("</div>");
@@ -906,7 +917,7 @@
          averageIncome = Double.parseDouble(averageIncomeInZIP(Integer.parseInt(text2), connection)) * 1000;
          out.println("<p><b>Average household income in " + text2 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text2), connection));
-         out.println("<p><b>Total Returns in " + text2 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Total tax returns in " + text2 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
          out.println("<p><b>Restaurants with the most locations in " + text2 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text2), 5, connection) + "</p>");
 
          out.println("</div>");
@@ -914,26 +925,26 @@
 
       }
       // All ZIP codes
-      if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("ZIP")) {
+      else if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("ZIP")) {
          out.println("<p><h2>All ZIP Codes</h2></p>");
       }
 
       // One State
-      if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("State")) {
-         out.println("<p><h2>State: " + text1 + ".</h2></p>");
+      else if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("State")) {
+         out.println("<p><h2>State: " + text1 + "</h2></p>");
          out.println("<p><b>Top 5 restaurants in " + text1 + ":</b></br>" + topRestaurantsInState(text1, 5, connection) + "</p>");
          Double averageIncome = Double.parseDouble(averageIncomeInState(text1, connection)) * 1000;
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInState(text1, connection));
-         out.println("<p><b>Total returns in in " + text1 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
          out.println("<p><b>Richest counties in " + text1 + " (and median household income):</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Poorest counties in " + text1 + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the richest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the poorest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text1, 5, connection) + "</p>");
       }
       // Two States
-      if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("State")) {
-         out.println("<p><h2>Two States: " + text1 + " and " + text2 + ".</h2></p>");
+      else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("State")) {
+         out.println("<p><h2 style=\"margin-left: -18px;\">Two States: " + text1 + " and " + text2 + "</h2></p>");
 
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
@@ -943,7 +954,7 @@
          Double averageIncome = Double.parseDouble(averageIncomeInState(text1, connection)) * 1000;
          out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInState(text1, connection));
-         out.println("<p><b>Total returns in in " + text1 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
          out.println("<p><b>Richest counties in " + text1 + " (and median household income):</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Poorest counties in " + text1 + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the richest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
@@ -957,7 +968,7 @@
          averageIncome = Double.parseDouble(averageIncomeInState(text2, connection)) * 1000;
          out.println("<p><b>Average household income in " + text2 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          totalReturns = Double.parseDouble(totalReturnsInState(text2, connection));
-         out.println("<p><b>Total returns in in " + text2 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Total tax returns in " + text2 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
          out.println("<p><b>Richest counties in " + text2 + " (and median household income):</b></br>" + richestCountiesInState(text2, 5, connection) + "</p>");
          out.println("<p><b>Poorest counties in " + text2 + " (and median household income):</b></br>" + poorestCountiesInState(text2, 5, connection) + "</p>");
          out.println("<p><b>Most common restaurants in the richest counties in " + text2 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text2, 5, connection) + "</p>");
@@ -968,12 +979,12 @@
 
       }
       // All States
-      if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("State")) {
+      else if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("State")) {
         out.println("<p><h2>All States</h2></p>");
-        out.println("<p><b>Top restaurants total:</b></br>" + topRestaurantsEverywhere(5, connection) + "</p>");
-        out.println("<p><b>Average household income everywhere:</b></br>" + currencyFormat.format(1000 * Double.parseDouble(averageIncomeEverywhere(connection))) + "</p>");
+        out.println("<p><b>Top 5 restaurants in the United States:</b></br>" + topRestaurantsEverywhere(5, connection) + "</p>");
+        out.println("<p><b>Average household income in the United States:</b></br>" + currencyFormat.format(1000 * Double.parseDouble(averageIncomeEverywhere(connection))) + "</p>");
         Double totalReturns = Double.parseDouble(totalReturnsEverywhere(connection));
-        out.println("<p><b>Total returns in all states:</b></br>" + numberFormat.format(totalReturns) + "</p>");
+        out.println("<p><b>Total tax returns in the United States:</b></br>" + numberFormat.format(totalReturns) + "</p>");
         out.println("<p><b>Richest states (and average household income):</b></br>" + richestStatesEverywhere(5, connection) + "</p>");
         out.println("<p><b>Poorest states (and average household income):</b></br>" + poorestStatesEverywhere(5, connection) + "</p>");
         out.println("<p><b>Most common restaurants in richest states:</b></br>" + mostCommonRestaurantsInRichestStates(5, 5, connection) + "</p>");
@@ -981,8 +992,8 @@
       }
 
       // One Restaurant
-      if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("Restaurant")) {
-         out.println("<p><strong>Restaurant: " + text1 + ".</strong></p>");
+      else if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("Restaurant")) {
+         out.println("<p><h2>Restaurant: " + text1 + "</h2></p>");
          Double numLocations = Double.parseDouble(numRestaurantsAllStates(text1, connection));
          out.println("<p><b>Number of " + text1 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
          out.println("<p><b>States with the most " + text1 + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
@@ -991,13 +1002,13 @@
 
       }
       // Two Restaurants
-      if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("Restaurant")) {
-         out.println("<p><h2>Two Restaurants: " + text1 + " and " + text2 + ".</h2></p>");
+      else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("Restaurant")) {
+         out.println("<p><h2 style=\"margin-left: -18px;\">Two Restaurants: " + text1 + " and " + text2 + ".</h2></p>");
 
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
 
-         out.println("<p><strong>Restaurant: " + text1 + "</strong></p>");
+         out.println("<p><u><strong>Restaurant: " + text1 + "</strong></u></p>");
          Double numLocations = Double.parseDouble(numRestaurantsAllStates(text1, connection));
          out.println("<p><b>Number of " + text1 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
          out.println("<p><b>States with the most " + text1 + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
@@ -1007,7 +1018,7 @@
          out.println("</div>");
          out.println("<div class=\"column\">");
 
-         out.println("<p><strong>Restaurant: " + text2 + "</strong></p>");
+         out.println("<p><u><strong>Restaurant: " + text2 + "</strong></u></p>");
          numLocations = Double.parseDouble(numRestaurantsAllStates(text2, connection));
          out.println("<p><b>Number of " + text2 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
          out.println("<p><b>States with the most " + text2 + " locations:</b></br>" + mostCommonStates(text2, 5, connection) + "</p>");
@@ -1019,11 +1030,11 @@
 
       }
       // All Restaurants
-      if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("Restaurant")) {
-         out.println("<p><strong>All Restaurants</strong></p>");
-         out.println("<p><b>The top 5 most popular restaurants in the entire United States:</b></br>" + topRestaurantsEverywhere(5, connection) + "</p>");
-         out.println("<p><b>The top 5 most common restaurants in the richest states:</b></br>" + mostCommonRestaurantsInRichestStates(5, 5, connection) + "</p>");
-         out.println("<p><b>The top 5 most common restaurants in the poorest states:</b></br>" + mostCommonRestaurantsInPoorestStates(5, 5, connection) + "</p>");
+      else if (radioCount.equalsIgnoreCase("All") && radioType.equalsIgnoreCase("Restaurant")) {
+         out.println("<p><h2>All Restaurants</h2></p>");
+         out.println("<p><b>Top 5 restaurants in the United States:</b></br>" + topRestaurantsEverywhere(5, connection) + "</p>");
+         out.println("<p><b>Most common restaurants in richest states:</b></br>" + mostCommonRestaurantsInRichestStates(5, 5, connection) + "</p>");
+         out.println("<p><b>Most common restaurants in poorest states:</b></br>" + mostCommonRestaurantsInPoorestStates(5, 5, connection) + "</p>");
       }
 
       out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");

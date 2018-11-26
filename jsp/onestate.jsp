@@ -36,7 +36,7 @@
       <form class="col-4 card" name="myform" id="myform" action="../results.jsp">
 
         <div class="text-center p-4">
-            Please enter a state abbreviations<br>(e.g. GA or CA)
+            Please enter a state abbreviation.<br>(e.g. GA or CA)
         </div>
 
         <div name="inputs-here">

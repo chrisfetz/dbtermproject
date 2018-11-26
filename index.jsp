@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
         </li>
         <%-- <li class="nav-item">
           <a class="nav-link" href="#">About</a>
@@ -35,10 +35,10 @@
     <div class="row justify-content-center text-center">
       <div class="col-12 card p-3 m-4">
           <p>This website gives you information about restaurants and areas of the United States.</p>
-          <p>Created by William Biddy, Chris Fetz, and Kevin Bagwell.</p>
+          <p>Team Members: William Biddy, Chris Fetz, and Kevin Bagwell.</br>Team Name: The Datablasters</p>
       </div>
       <div class="col-6 card p-3">
-        I'm looking for information about 
+        I'm looking for information about: 
         <div class="btn-group p-1">
           <a class="btn btn-primary btn-sm m-1" href="jsp/onezipcode.jsp" role="button">One ZIP Code</a>
           <a class="btn btn-primary btn-sm m-1" href="jsp/twozipcodes.jsp" role="button">Two ZIP Codes</a>
