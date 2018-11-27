@@ -20,21 +20,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
         </li>
-        <%-- <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+        <li class="nav-item active">
+            <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-        </li> --%>
     </div>
   </nav>
 
   <div class="container" id="container">
     <div class="row justify-content-center text-center">
       <div class="col-12 card p-3 m-4">
-          <p>This website gives you information about restaurants and areas of the United States.</p>
+          <p>This website gives you information about the <a href="https://datafiniti.co/fast-food-restaurants-america/">20 most common restaurants in the United States</a>
+            and the <a href=https://www.irs.gov/statistics/soi-tax-stats-individual-income-tax-statistics-2016-zip-code-data-soi>total income of every state and ZIP code in the United States.</a> 
+            By bringing this information together, Money vs. Meals allows you to see whether the total income of an area affects the availibility of fast food options there.
+          </p>
           <p>Team Members: William Biddy, Chris Fetz, and Kevin Bagwell.</br>Team Name: The Datablasters</p>
       </div>
       <div class="col-6 card p-3">
