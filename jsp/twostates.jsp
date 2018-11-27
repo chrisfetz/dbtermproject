@@ -49,7 +49,7 @@
             </div>
             <input type="hidden" class="form-control" name="radiocount" value="Two" aria-describedby="inputGroup-sizing-sm">
             <input type="hidden" class="form-control" name="radiotype" value="State" aria-describedby="inputGroup-sizing-sm">
-            <select class="form-control" name="selectinput">
+            <select class="form-control" name="textinput1">
             </select>            
             </div>
         <div name="inputs-here">
@@ -57,7 +57,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">State 2</span>
             </div>
-            <select class="form-control" name="selectinput">
+            <select class="form-control" name="textinput2">
             </select>              
           </div>
         </div>

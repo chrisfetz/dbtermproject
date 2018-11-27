@@ -49,7 +49,7 @@
             </div>
             <input type="hidden" class="form-control" name="radiocount" value="One" aria-describedby="inputGroup-sizing-sm">
             <input type="hidden" class="form-control" name="radiotype" value="State" aria-describedby="inputGroup-sizing-sm">
-            <select class="form-control" name="selectinput">
+            <select class="form-control" name="textinput1">
             </select>    
             </div>
         </div>

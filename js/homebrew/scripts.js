@@ -51,7 +51,7 @@ function generateStateSelect () {
 }
 
 function populateStates(){
-    var selects = document.getElementsByName("selectinput");
+    var selects = document.getElementsByTagName("select");
     for (var i = 0; i < selects.length; i++){
         populateState(selects[i]);
     }
@@ -69,7 +69,7 @@ function populateState (input) {
 }
 
 function populateRestaurants(){
-    var selects = document.getElementsByName("selectinput");
+    var selects = document.getElementsByTagName("select");
     for (var i = 0; i < selects.length; i++){
         populateRestaurant(selects[i]);
     }
