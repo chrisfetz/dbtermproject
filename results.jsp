@@ -12,6 +12,12 @@
 <% String text1 = request.getParameter("textinput1"); %>
 <% String text2 = request.getParameter("textinput2"); %>
 
+<% String text1Output = text1;
+String text2Output = text2; %>
+
+<% if (text1 != null) text1 = text1.replace("'", "''"); %>
+<% if (text2 != null) text2 = text2.replace("'", "''"); %>
+
 <% if (radioCount == null) radioCount = "";
    if (radioType == null) radioType = "";
    if (text1 == null) text1 = "";
@@ -757,7 +763,7 @@
     }
 
     /*
-     * Get the average income of the most common counties for a certain restaurant overall
+     * Get the average income of the N most common counties for a certain restaurant overall
      */
     private static String commonCountyOverallAvgIncome(String name, int N, Connection connection) throws SQLException {
 
@@ -892,37 +898,37 @@
 
       // One ZIP Code
       if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("ZIP")) {
-         out.println("<p><h2>ZIP Code: " + text1 + "</h2></p>");
+         out.println("<p><h2>ZIP Code: " + text1Output + "</h2></p>");
          Double averageIncome = Double.parseDouble(averageIncomeInZIP(Integer.parseInt(text1), connection)) * 1000;
-         out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
+         out.println("<p><b>Average household income in " + text1Output + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text1), connection));
-         out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Restaurants with the most locations in " + text1 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
+         out.println("<p><b>Total tax returns in " + text1Output + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Restaurants with the most locations in " + text1Output + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
          out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
       // Two ZIP Codes
       else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("ZIP")) {
 
-         out.println("<p><h2 style=\"margin-left: -18px;\">Two ZIP Codes: " + text1 + " and " + text2 + "</h2></p>");
+         out.println("<p><h2 style=\"margin-left: -18px;\">Two ZIP Codes: " + text1Output + " and " + text2Output + "</h2></p>");
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>ZIP Code: " + text1 + "</strong></u></p>");
+         out.println("<p><u><strong>ZIP Code: " + text1Output + "</strong></u></p>");
          Double averageIncome = Double.parseDouble(averageIncomeInZIP(Integer.parseInt(text1), connection)) * 1000;
-         out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
+         out.println("<p><b>Average household income in " + text1Output + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text1), connection));
-         out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Restaurants with the most locations in " + text1 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
+         out.println("<p><b>Total tax returns in " + text1Output + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Restaurants with the most locations in " + text1Output + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text1), 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>ZIP Code: " + text2 + "</strong></u></p>");
+         out.println("<p><u><strong>ZIP Code: " + text2Output + "</strong></u></p>");
          averageIncome = Double.parseDouble(averageIncomeInZIP(Integer.parseInt(text2), connection)) * 1000;
-         out.println("<p><b>Average household income in " + text2 + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
+         out.println("<p><b>Average household income in " + text2Output + ":</b></br>" + currencyFormat.format(averageIncome) + "</p>");
          totalReturns = Double.parseDouble(totalReturnsInZIP(Integer.parseInt(text2), connection));
-         out.println("<p><b>Total tax returns in " + text2 + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Restaurants with the most locations in " + text2 + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text2), 5, connection) + "</p>");
+         out.println("<p><b>Total tax returns in " + text2Output + ":</b></br>" + numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Restaurants with the most locations in " + text2Output + ":</b></br>" + topRestaurantsInZIP(Integer.parseInt(text2), 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("</div>");
@@ -937,51 +943,51 @@
 
       // One State
       else if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("State")) {
-         out.println("<p><h2>State: " + text1 + "</h2></p>");
-         out.println("<p><b>Top 5 restaurants in " + text1 + ":</b></br>" + topRestaurantsInState(text1, 5, connection) + "</p>");
+         out.println("<p><h2>State: " + text1Output + "</h2></p>");
+         out.println("<p><b>Top 5 restaurants in " + text1Output + ":</b></br>" + topRestaurantsInState(text1, 5, connection) + "</p>");
          Double averageIncome = Double.parseDouble(averageIncomeInState(text1, connection)) * 1000;
-         out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
+         out.println("<p><b>Average household income in " + text1Output + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInState(text1, connection));
-         out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Richest counties in " + text1 + " (and median household income):</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
-         out.println("<p><b>Poorest counties in " + text1 + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
-         out.println("<p><b>Most common restaurants in the richest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
-         out.println("<p><b>Most common restaurants in the poorest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Total tax returns in " + text1Output + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Richest counties in " + text1Output + " (and median household income):</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Poorest counties in " + text1Output + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Most common restaurants in the richest counties in " + text1Output + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Most common restaurants in the poorest counties in " + text1Output + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text1, 5, connection) + "</p>");
          out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
       // Two States
       else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("State")) {
-         out.println("<p><h2 style=\"margin-left: -18px;\">Two States: " + text1 + " and " + text2 + "</h2></p>");
+         out.println("<p><h2 style=\"margin-left: -18px;\">Two States: " + text1Output + " and " + text2Output + "</h2></p>");
 
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>State: " + text1 + "</strong></u></p>");
-         out.println("<p><b>Top 5 restaurants in " + text1 + ":</b></br>" + topRestaurantsInState(text1, 5, connection) + "</p>");
+         out.println("<p><u><strong>State: " + text1Output + "</strong></u></p>");
+         out.println("<p><b>Top 5 restaurants in " + text1Output + ":</b></br>" + topRestaurantsInState(text1, 5, connection) + "</p>");
          Double averageIncome = Double.parseDouble(averageIncomeInState(text1, connection)) * 1000;
-         out.println("<p><b>Average household income in " + text1 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
+         out.println("<p><b>Average household income in " + text1Output + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          Double totalReturns = Double.parseDouble(totalReturnsInState(text1, connection));
-         out.println("<p><b>Total tax returns in " + text1 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Richest counties in " + text1 + " (and median household income):</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
-         out.println("<p><b>Poorest counties in " + text1 + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
-         out.println("<p><b>Most common restaurants in the richest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
-         out.println("<p><b>Most common restaurants in the poorest counties in " + text1 + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Total tax returns in " + text1Output + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Richest counties in " + text1Output + " (and median household income):</b></br>" + richestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Poorest counties in " + text1Output + " (and median household income):</b></br>" + poorestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Most common restaurants in the richest counties in " + text1Output + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text1, 5, connection) + "</p>");
+         out.println("<p><b>Most common restaurants in the poorest counties in " + text1Output + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text1, 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("<div class=\"column\">");
 
          
 
-         out.println("<p><u><strong>State: " + text2 + "</strong></u></p>");
-         out.println("<p><b>Top 5 restaurants in " + text2 + ":</b></br>" + topRestaurantsInState(text2, 5, connection) + "</p>");
+         out.println("<p><u><strong>State: " + text2Output + "</strong></u></p>");
+         out.println("<p><b>Top 5 restaurants in " + text2Output + ":</b></br>" + topRestaurantsInState(text2, 5, connection) + "</p>");
          averageIncome = Double.parseDouble(averageIncomeInState(text2, connection)) * 1000;
-         out.println("<p><b>Average household income in " + text2 + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
+         out.println("<p><b>Average household income in " + text2Output + ":</b></br>" + currencyFormat.format(averageIncome)  + "</p>");
          totalReturns = Double.parseDouble(totalReturnsInState(text2, connection));
-         out.println("<p><b>Total tax returns in " + text2 + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
-         out.println("<p><b>Richest counties in " + text2 + " (and median household income):</b></br>" + richestCountiesInState(text2, 5, connection) + "</p>");
-         out.println("<p><b>Poorest counties in " + text2 + " (and median household income):</b></br>" + poorestCountiesInState(text2, 5, connection) + "</p>");
-         out.println("<p><b>Most common restaurants in the richest counties in " + text2 + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text2, 5, connection) + "</p>");
-         out.println("<p><b>Most common restaurants in the poorest counties in " + text2 + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text2, 5, connection) + "</p>");
+         out.println("<p><b>Total tax returns in " + text2Output + ":</b></br>" +  numberFormat.format(totalReturns) + "</p>");
+         out.println("<p><b>Richest counties in " + text2Output + " (and median household income):</b></br>" + richestCountiesInState(text2, 5, connection) + "</p>");
+         out.println("<p><b>Poorest counties in " + text2Output + " (and median household income):</b></br>" + poorestCountiesInState(text2, 5, connection) + "</p>");
+         out.println("<p><b>Most common restaurants in the richest counties in " + text2Output + ":</b></br>" + mostCommonRestaurantsInRichestCountiesInState(text2, 5, connection) + "</p>");
+         out.println("<p><b>Most common restaurants in the poorest counties in " + text2Output + ":</b></br>" + mostCommonRestaurantsInPoorestCountiesInState(text2, 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("</div>");
@@ -1004,37 +1010,37 @@
 
       // One Restaurant
       else if (radioCount.equalsIgnoreCase("One") && radioType.equalsIgnoreCase("Restaurant")) {
-         out.println("<p><h2>Restaurant: " + text1 + "</h2></p>");
+         out.println("<p><h2>Restaurant: " + text1Output + "</h2></p>");
          Double numLocations = Double.parseDouble(numRestaurantsAllStates(text1, connection));
-         out.println("<p><b>Number of " + text1 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
-         out.println("<p><b>States with the most " + text1 + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
-         out.println("<p><b>Counties with the most " + text1 + " locations:</b></br>" + mostCommonCountiesOverall(text1, 5, connection) + "</p>");
-         out.println("<p><b>Average income of the counties with the most " + text1 + " locations:</b></br>" + commonCountyOverallAvgIncome(text1, 5, connection) + "</p>");
+         out.println("<p><b>Number of " + text1Output + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
+         out.println("<p><b>States with the most " + text1Output + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
+         out.println("<p><b>Counties with the most " + text1Output + " locations:</b></br>" + mostCommonCountiesOverall(text1, 5, connection) + "</p>");
+         out.println("<p><b>Average income of the counties with the most " + text1Output + " locations:</b></br>" + commonCountyOverallAvgIncome(text1, 5, connection) + "</p>");
          out.println("<p><b><a href=\"index.jsp\">Go Back</a></p>");
       }
       // Two Restaurants
       else if (radioCount.equalsIgnoreCase("Two") && radioType.equalsIgnoreCase("Restaurant")) {
-         out.println("<p><h2 style=\"margin-left: -18px;\">Two Restaurants: " + text1 + " and " + text2 + ".</h2></p>");
+         out.println("<p><h2 style=\"margin-left: -18px;\">Two Restaurants: " + text1Output + " and " + text2Output + ".</h2></p>");
 
          out.println("<div class=\"row\">");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>Restaurant: " + text1 + "</strong></u></p>");
+         out.println("<p><u><strong>Restaurant: " + text1Output + "</strong></u></p>");
          Double numLocations = Double.parseDouble(numRestaurantsAllStates(text1, connection));
-         out.println("<p><b>Number of " + text1 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
-         out.println("<p><b>States with the most " + text1 + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
-         out.println("<p><b>Counties with the most " + text1 + " locations:</b></br>" + mostCommonCountiesOverall(text1, 5, connection) + "</p>");
-         out.println("<p><b>Average income of the counties with the most " + text1 + " locations:</b></br>" + commonCountyOverallAvgIncome(text1, 5, connection) + "</p>");
+         out.println("<p><b>Number of " + text1Output + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
+         out.println("<p><b>States with the most " + text1Output + " locations:</b></br>" + mostCommonStates(text1, 5, connection) + "</p>");
+         out.println("<p><b>Counties with the most " + text1Output + " locations:</b></br>" + mostCommonCountiesOverall(text1, 5, connection) + "</p>");
+         out.println("<p><b>Average income of the counties with the most " + text1Output + " locations:</b></br>" + commonCountyOverallAvgIncome(text1, 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("<div class=\"column\">");
 
-         out.println("<p><u><strong>Restaurant: " + text2 + "</strong></u></p>");
+         out.println("<p><u><strong>Restaurant: " + text2Output + "</strong></u></p>");
          numLocations = Double.parseDouble(numRestaurantsAllStates(text2, connection));
-         out.println("<p><b>Number of " + text2 + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
-         out.println("<p><b>States with the most " + text2 + " locations:</b></br>" + mostCommonStates(text2, 5, connection) + "</p>");
-         out.println("<p><b>Counties with the most " + text2 + " locations:</b></br>" + mostCommonCountiesOverall(text2, 5, connection) + "</p>");
-         out.println("<p><b>Average income of the counties with the most " + text2 + " locations:</b></br>" + commonCountyOverallAvgIncome(text2, 5, connection) + "</p>");
+         out.println("<p><b>Number of " + text2Output + " locations nationwide:</b></br>" + numberFormat.format(numLocations) + "</p>");
+         out.println("<p><b>States with the most " + text2Output + " locations:</b></br>" + mostCommonStates(text2, 5, connection) + "</p>");
+         out.println("<p><b>Counties with the most " + text2Output + " locations:</b></br>" + mostCommonCountiesOverall(text2, 5, connection) + "</p>");
+         out.println("<p><b>Average income of the counties with the most " + text2Output + " locations:</b></br>" + commonCountyOverallAvgIncome(text2, 5, connection) + "</p>");
 
          out.println("</div>");
          out.println("</div>");
