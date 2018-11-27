@@ -22,6 +22,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="../about.html">About <span class="sr-only">(current)</span></a>
+        </li>
         <%-- <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
@@ -58,3 +61,10 @@
     <script src="../js/homebrew/scripts.js"></script>
 </body>
 </html>
+
+<style>
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.05rem #007bff;
+}
+</style>

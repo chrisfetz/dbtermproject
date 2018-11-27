@@ -858,6 +858,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
+        </li>
         <%-- <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
@@ -966,6 +969,8 @@
 
          out.println("</div>");
          out.println("<div class=\"column\">");
+
+         
 
          out.println("<p><u><strong>State: " + text2 + "</strong></u></p>");
          out.println("<p><b>Top 5 restaurants in " + text2 + ":</b></br>" + topRestaurantsInState(text2, 5, connection) + "</p>");
