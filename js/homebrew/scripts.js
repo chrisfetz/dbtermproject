@@ -24,113 +24,9 @@ var restaurantNameList = ["Subway", "McDonald's", "Burger King", "Taco Bell", "P
                           "Jimmy John's", "Jack in the Box", "Chick-fil-A", "Chipotle", "Panda Express",
                           "Carl's Jr.", "Five Guys", "Whataburger"];
 
-inputsdiv = document.getElementById("inputs-here");
-inputsdefault = getDefaults();
-
-//Gets the value of the radio button that was clicked.
-function getValue (myRadio) {
-
-    var value;
-    myRadio = document.getElementsByName(myRadio.name);
-    for (var i = 0, length = myRadio.length; i < length; i++) {
-        if (myRadio[i].checked)  {
-            //do whatever you want with the checked radio
-            value = myRadio[i].value;
-
-            //only one radio can be logically checked, don't check the rest
-            break;
-        }
-    }
-    return value;
-}
-
-//handle radio button clicks and change the frontend as necessary
-function radioClick (myRadio) {
-    //get value of radio that was clicked
-    value = getValue(myRadio);
-
-    //get dom elements that may be changed
-    var input1 = document.getElementById("textinput1");
-    var input2 = document.getElementById("textinput2");
-    var inputlabel1 = document.getElementById("textinputlabel1");
-    var inputlabel2 = document.getElementById("textinputlabel2");
-    var inputsdiv = document.getElementById("inputs-here");
-    var zipradio = document.getElementById("zipradio");
-
-    switch (value) {
-        case "One":
-            zipradio.disabled = false;
-            showElement(inputsdiv);
-            showElement(inputlabel1);
-            showElement(input1);
-            hideElement(inputlabel2);
-            hideAndClearElement(input2);
-            break;
-        case "Two":
-            zipradio.disabled = false;
-            showElement(inputsdiv);
-            showElement(inputlabel1);
-            showElement(input1);
-            showElement(inputlabel2);
-            showElement(input2);
-            break;
-        case "All":
-            zipradio.disabled = true;
-            zipradio.checked = false;
-            hideElement(inputsdiv);
-            hideElement(inputlabel1);
-            hideAndClearElement(input1);
-            hideElement(inputlabel2);
-            hideAndClearElement(input2);
-            break;
-        case "ZIP":
-            inputsdiv.parentNode.replaceChild(inputsdefault, inputsdiv);
-            clearElement(input1);
-            clearElement(input2);
-            inputlabel1.innerHTML = "ZIP Code 1";
-            inputlabel2.innerHTML = "ZIP Code 2";
-            break;
-        case "State":
-            input1.parentNode.replaceChild(generateStateSelect(), input1);  
-            clearElement(input1);
-            clearElement(input2);
-            input1.parentNode.replaceChild(generateStateSelect(), input1);
-            input2.parentNode.replaceChild(generateStateSelect(), input2);
-            inputlabel1.innerHTML = "State 1";
-            inputlabel2.innerHTML = "State 2";
-            break;
-        case "Restaurant":
-            inputsdiv.parentNode.replaceChild(inputsdefault, inputsdiv);
-            clearElement(input1);
-            clearElement(input2);
-            inputlabel1.innerHTML = "Restaurant 1";
-            inputlabel2.innerHTML = "Restaurant 2";
-            break;
-        default:
-            alert("Something went wrong. Please refresh the page.");
-    }
-}
-
-//hides an element and changes its value to default
-function hideAndClearElement(myElement){
-    hideElement(myElement);
-    clearElement(myElement);
-}
-
-//hides an element from view
-function hideElement(myElement){
-    myElement.style.display = "none";
-}
-
-//shows a previously hidden element
-function showElement(myElement){
-    myElement.style.display = "block";
-}
-
-//changes the value of an element to default
-function clearElement(myElement){
-    myElement.value = "";
-}
+//get dom elements that may be changed
+var input1 = document.getElementsByName("textinput1");
+var input2 = document.getElementByName("textinput2");
 
 //generates selects for states
 function generateStateSelect () {
@@ -154,30 +50,38 @@ function generateStateSelect () {
     return myDiv;
 }
 
-function restoreDefaults () {
-    
-}
-
-function getDefaults () {
-    var inputshere = document.getElementById("inputs-here");
-    return inputshere;
-}
-
-function generateInput(count, type) {
-    var inputGroupClasses = "input-group input-group-sm mb-3";
-    var prependClasses = "input-group-prepend";
-    var labelClasses = "input-group-text";
-    var inputTypes = ["text", "select"];
-    var selectionTypes = ["ZIP Code", "State", "Restaurant"];
-    var displayTypes = ["block", "none"];
-    var inputclass = "form-control";
-    //aria-label="Text input 2" 
-    //aria-describedby="inputGroup-sizing-sm"
-
-    var inputsdiv = document.createElement("div");
-    for (var i = 0; i < count; i++){
-        var inputspart = document.createElement("div");
-        inputspart.class = inputGroupClasses;
+function populateStates(){
+    var selects = document.getElementsByName("selectinput");
+    for (var i = 0; i < selects.length; i++){
+        populateState(selects[i]);
     }
+}
 
+function populateState (input) {
+    for(var i = 0; i < stateAbbrList.length; i++){
+        var opt = document.createElement("option");
+        opt.value= stateAbbrList[i];
+        opt.innerHTML = stateNameList[i]; // whatever property it has
+
+        // then append it to the select element
+        input.appendChild(opt);
+    }
+}
+
+function populateRestaurants(){
+    var selects = document.getElementsByName("selectinput");
+    for (var i = 0; i < selects.length; i++){
+        populateRestaurant(selects[i]);
+    }
+}
+
+function populateRestaurant (input) {
+    for(var i = 0; i < restaurantNameList.length; i++){
+        var opt = document.createElement("option");
+        opt.value= restaurantNameList[i];
+        opt.innerHTML = restaurantNameList[i]; // whatever property it has
+
+        // then append it to the select element
+        input.appendChild(opt);
+    }
 }

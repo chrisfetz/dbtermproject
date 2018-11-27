@@ -10,7 +10,7 @@
 	<![endif]-->
 </head>
 
-<body id="home">
+<body id="home" onload="populateStates();">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="../index.jsp">Money vs. Meals</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
       <form class="col-4 card" name="myform" id="myform" action="../results.jsp">
 
         <div class="text-center p-4">
-            Please enter two state abbreviations.<br>(e.g. GA and CA)
+            Please choose two states.
         </div>
 
         <div name="inputs-here">
@@ -49,14 +49,16 @@
             </div>
             <input type="hidden" class="form-control" name="radiocount" value="Two" aria-describedby="inputGroup-sizing-sm">
             <input type="hidden" class="form-control" name="radiotype" value="State" aria-describedby="inputGroup-sizing-sm">
-            <input type="text" class="form-control" name="textinput1" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">     
-        </div>
+            <select class="form-control" name="selectinput">
+            </select>            
+            </div>
         <div name="inputs-here">
           <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">State 2</span>
             </div>
-            <input type="text" class="form-control" name="textinput2" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">          </div>
+            <select class="form-control" name="selectinput">
+            </select>              
           </div>
         </div>
 

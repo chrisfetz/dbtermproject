@@ -10,7 +10,7 @@
 	<![endif]-->
 </head>
 
-<body id="home">
+<body id="home" onload="populateRestaurants();">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="../index.jsp">Money vs. Meals</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
       <form class="col-4 card" name="myform" id="myform" action="../results.jsp">
 
         <div class="text-center p-4">
-            Please enter a restaurant name.<br>(e.g. Subway or KFC)
+            Please choose a restaurant.
         </div>
 
         <div name="inputs-here">
@@ -49,8 +49,9 @@
             </div>
             <input type="hidden" class="form-control" name="radiocount" value="One" aria-describedby="inputGroup-sizing-sm">
             <input type="hidden" class="form-control" name="radiotype" value="Restaurant" aria-describedby="inputGroup-sizing-sm">
-            <input type="text" class="form-control" name="textinput1" aria-label="Text input" aria-describedby="inputGroup-sizing-sm">          </div>
-        </div>
+            <select class="form-control" name="selectinput">
+            </select>        
+            </div>
 
         <input type="submit" class="m-3" value="Submit">
       </form> 
