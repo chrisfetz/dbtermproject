@@ -26,7 +26,7 @@ var restaurantNameList = ["Subway", "McDonald's", "Burger King", "Taco Bell", "P
 
 //get dom elements that may be changed
 var input1 = document.getElementsByName("textinput1");
-var input2 = document.getElementByName("textinput2");
+var input2 = document.getElementsByName("textinput2");
 
 //generates selects for states
 function generateStateSelect () {
