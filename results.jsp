@@ -101,7 +101,7 @@ String text2Output = text2; %>
      */
     private static String averageIncomeInZIP(int zip, Connection connection) throws SQLException {
 
-        String sql = "SELECT avgIncome\n" +
+        String sql = "SELECT ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6)\n" +
                 "FROM taxdatasum\n" +
                 "WHERE zipcode = " + zip + "";
 
@@ -213,7 +213,7 @@ String text2Output = text2; %>
      */
     private static String averageIncomeInState(String state, Connection connection) throws SQLException {
 
-        String sql = "SELECT avgIncome\n" +
+        String sql = "SELECT ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6)\n" +
                 "FROM taxdatasum\n" +
                 "WHERE state = '" + state + "' AND zipcode = 0;";
 
@@ -448,10 +448,10 @@ String text2Output = text2; %>
      */
     private static String richestStatesEverywhere(int N, Connection connection) throws SQLException {
 
-        String sql = "SELECT state, avgIncome\n" +
+        String sql = "SELECT state, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6)\n" +
                 "FROM taxdatasum\n" +
                 "WHERE zipcode = 0\n" +
-                "ORDER BY avgIncome DESC\n" +
+                "ORDER BY ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6) DESC\n" +
                 "LIMIT " + N;
 
         Statement statement = connection.createStatement();
@@ -473,10 +473,10 @@ String text2Output = text2; %>
      */
     private static String poorestStatesEverywhere(int N, Connection connection) throws SQLException {
 
-        String sql = "SELECT state, avgIncome\n" +
+        String sql = "SELECT state, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6)\n" +
                 "FROM taxdatasum\n" +
                 "WHERE zipcode = 0\n" +
-                "ORDER BY avgIncome\n" +
+                "ORDER BY ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6)\n" +
                 "LIMIT " + N;
 
         Statement statement = connection.createStatement();
@@ -507,7 +507,7 @@ String text2Output = text2; %>
                 "\t\tSELECT * from (SELECT state\n" +
                 "\t\tFROM taxdatasum\n" +
                 "\t\tWHERE zipcode = 0\n" +
-                "\t\tORDER BY avgIncome DESC\n" +
+                "\t\tORDER BY ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6) DESC\n" +
                 "\t\tLIMIT " + M + ") as t1\n" +
                 "    )\n" +
                 "\n" +
@@ -545,7 +545,7 @@ String text2Output = text2; %>
                 "\t\tSELECT * from (SELECT state\n" +
                 "\t\tFROM taxdatasum\n" +
                 "\t\tWHERE zipcode = 0\n" +
-                "\t\tORDER BY avgIncome\n" +
+                "\t\tORDER BY ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6)\n" +
                 "\t\tLIMIT " + M + ") as t1\n" +
                 "    )\n" +
                 "\n" +
@@ -788,7 +788,8 @@ String text2Output = text2; %>
                 "LIMIT " + N +
                 ") as t1 " +
                 ") "+
-                "GROUP BY state, county";
+                "GROUP BY state, county"+
+                "LIMIT " + N;
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -810,7 +811,7 @@ String text2Output = text2; %>
      */
     private static String commonStateAvgIncome(String name, int N, Connection connection) throws SQLException {
 
-        String sql = "SELECT state, avgIncome"+
+        String sql = "SELECT state, ROUND((sum(totalIncome) * 1.0) / nullif(sum(numReturns), 0), 6)"+
                 "FROM taxdatasum" +
         "WHERE state in ( SELECT * from("+
                 "SELECT t.state"+
