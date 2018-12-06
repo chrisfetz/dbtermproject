@@ -1,3 +1,4 @@
+use termproject;
 ALTER TABLE restaurants
     drop latitude, drop longitude, drop county, drop state;
  
