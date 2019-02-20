@@ -24,16 +24,12 @@ var restaurantNameList = ["Subway", "McDonald's", "Burger King", "Taco Bell", "P
                           "Jimmy John's", "Jack in the Box", "Chick-fil-A", "Chipotle", "Panda Express",
                           "Carl's Jr.", "Five Guys", "Whataburger"];
 
-//get dom elements that may be changed
-var input1 = document.getElementsByName("textinput1");
-var input2 = document.getElementsByName("textinput2");
-
-//generates selects for states
+//generates selects for states, populating it from 
 function generateStateSelect () {
 
     var myDiv = document.createElement('div');
 
-    //code from stackoverflow, credits to the author Kappa
+    //following code from stackoverflow, credits to tymeJV here: https://stackoverflow.com/questions/17001961/how-to-add-drop-down-list-select-programmatically
     //Create and append 
     var selectList = document.createElement("select");
     selectList.id = "mySelect";
@@ -50,6 +46,7 @@ function generateStateSelect () {
     return myDiv;
 }
 
+//Runs populateState on each select
 function populateStates(){
     var selects = document.getElementsByTagName("select");
     for (var i = 0; i < selects.length; i++){
@@ -57,17 +54,19 @@ function populateStates(){
     }
 }
 
+//Populates a select with options from stateAbbrList
 function populateState (input) {
     for(var i = 0; i < stateAbbrList.length; i++){
         var opt = document.createElement("option");
         opt.value= stateAbbrList[i];
-        opt.innerHTML = stateNameList[i]; // whatever property it has
+        opt.innerHTML = stateNameList[i];
 
         // then append it to the select element
         input.appendChild(opt);
     }
 }
 
+//Runs populateRestaurant on each Select
 function populateRestaurants(){
     var selects = document.getElementsByTagName("select");
     for (var i = 0; i < selects.length; i++){
@@ -75,13 +74,13 @@ function populateRestaurants(){
     }
 }
 
+//Populates a select with options from restaurantNameList
 function populateRestaurant (input) {
     for(var i = 0; i < restaurantNameList.length; i++){
         var opt = document.createElement("option");
         opt.value= restaurantNameList[i];
-        opt.innerHTML = restaurantNameList[i]; // whatever property it has
+        opt.innerHTML = restaurantNameList[i];
 
-        // then append it to the select element
         input.appendChild(opt);
     }
 }
